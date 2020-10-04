@@ -14,7 +14,7 @@ class SpringbootBoardApplicationTests {
 
 	@Autowired
 	private SqlSessionFactory sessionFactory;
-	
+
 	@Test
 	void contextLoads() {
 	}
@@ -42,4 +42,5 @@ class SpringbootBoardApplicationTests {
 			e.printStackTrace();
 		}
 	}
+
 }
