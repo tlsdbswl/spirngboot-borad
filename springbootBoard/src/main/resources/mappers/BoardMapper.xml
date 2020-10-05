@@ -23,15 +23,59 @@
 		#{idx},
 		#{title},
 		#{content},
-		#{writer}
-		, 0
-		, IFNULL(#{noticeYn},
+		#{writer},
+		0, IFNULL(#{noticeYn},
 		'N')
 		, IFNULL(#{secretYn}, 'N')
 		, 'N'
 		, NOW()
 		, NULL
-		, NULL
+		,
+		NULL
 		)
 	</insert>
+
+	<select id="selectBoardDetail" parameterType="long"
+		resultType="BoardDTO">
+		select
+		<include refid="boardColumns"></include>
+		from tb_board
+		where delete_yn = 'N'
+		and idx = #{idx}
+	</select>
+
+	<update id="updateBoard" parameterType="BoardDTO">
+		update tb_board
+		set
+			update_time = NOW(),
+			title = #{title},
+			content = #{content},
+			writer = #{writer},
+			notice_yn = IFNULL(#{noticeYn}, 'N'),
+			secret_yn = IFNULL(#{secretYn}, 'N'),
+		where idx = #{idx}
+	</update>
+	
+	<update id="deleteBoard" parameterType="long">
+		update tb_board
+		set
+			delete_yn='Y', delete_time=NOW()
+		where idx = #{idx}
+	</update>
+	
+	<select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO">
+		select <include refid="boardColumns"></include>
+		from tb_board
+		where delete_yn = 'N'
+		order by
+			notice_yn ASC,
+			idx DESC,
+			insert_time DESC
+	</select>
+	
+	<select id="selectBoardTotalCount" parameterType="BoardDTO" resultType="int">
+		select count(*)
+		from tb_board
+		where delete_yn = 'N'
+	</select>
 </mapper>
