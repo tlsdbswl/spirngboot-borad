@@ -52,7 +52,7 @@
 			content = #{content},
 			writer = #{writer},
 			notice_yn = IFNULL(#{noticeYn}, 'N'),
-			secret_yn = IFNULL(#{secretYn}, 'N'),
+			secret_yn = IFNULL(#{secretYn}, 'N')
 		where idx = #{idx}
 	</update>
 	
