@@ -6,6 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.domain.BoardDTO;
 import com.example.demo.mapper.BoardMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 public class MapperTests {
@@ -22,6 +24,20 @@ public class MapperTests {
 		
 		int result = boardMapper.insertBoard(params);
 		System.out.println("결과는"+result);
+	}
+	
+	@Test
+	public void testOfSelectDetail() {
+		BoardDTO board = boardMapper.selectBoardDetail((long)1);
+		try {
+			String boardJson = new ObjectMapper().writeValueAsString(board);
+			
+			System.out.println("===============");
+			System.out.println(boardJson);
+			System.out.println("===============");
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

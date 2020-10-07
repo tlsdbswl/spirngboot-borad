@@ -2,6 +2,11 @@ package com.example.demo.domain;
 
 import java.time.LocalDateTime;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class BoardDTO {
 	/** 번호 (PK) */
 	private Long idx;
