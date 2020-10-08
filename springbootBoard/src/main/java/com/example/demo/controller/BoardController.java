@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
@@ -44,5 +46,13 @@ public class BoardController {
 			//시스템 문제가 발생했 메시지 출력
 			}
 		return "redirect:/board/list.do";
+	}
+	
+	@GetMapping(value = "/board/list.do")
+	//Model : 컨트롤러에서 view단으로 데이터를 전달하는 데 사용되는 인터페이
+	public String openBoardList(Model model) {
+		List<BoardDTO> boardList = boardService.getBoardList();
+		model.addAttribute("boardList", boardList);
+		return "board/list";
 	}
 }
