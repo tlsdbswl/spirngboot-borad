@@ -55,4 +55,21 @@ public class BoardController {
 		model.addAttribute("boardList", boardList);
 		return "board/list";
 	}
+	
+	@GetMapping(value = "/board/view.do")
+	public String openBoardDetail(@RequestParam(value="idx", required = false) Long idx, Model model) {
+		if(idx == null) {
+			//올바르 않은 접근이라는 메시지 전달 후, 게시글 리스트로 리다이렉트 
+			return "redirect:/board/list.do";
+		}
+		
+		BoardDTO board = boardService.getBoardDetail(idx);
+		
+		if(board == null || "Y".equals(board.getDeleteYn())) {
+			return "redirect:/board/list.do";
+		}
+			//없는 게시글이거나 이미 삭제된 게시글이라는 메시지 전달 후, 게시글 리스트로 리다이렉트 
+			model.addAttribute("board", board);
+			return "board/view";
+	}
 }
