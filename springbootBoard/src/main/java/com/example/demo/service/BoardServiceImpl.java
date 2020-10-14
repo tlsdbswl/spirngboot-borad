@@ -55,8 +55,6 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardDTO> getBoardList() {
 		List<BoardDTO> boardList = Collections.emptyList();
 		
-		System.out.println(boardList);
-		
 		int boardTotalCount = boardMapper.selectBoardTotalCount();
 		
 		if(boardTotalCount>0) {
